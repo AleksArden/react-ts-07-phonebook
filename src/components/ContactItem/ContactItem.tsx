@@ -1,6 +1,5 @@
 import { useAppDispatch } from 'redux/hooks/hooks';
 import { deleteContactThunk } from 'redux/contacts/contacts.thunk';
-import PropTypes from 'prop-types';
 
 import css from './ContactItem.module.css';
 import { IContact } from 'types/contactType';
@@ -20,9 +19,4 @@ export const ContactItem = ({ name, phone, id }: IContact) => {
       </button>
     </>
   );
-};
-ContactItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
 };
