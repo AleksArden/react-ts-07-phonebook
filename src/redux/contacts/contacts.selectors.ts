@@ -1,18 +1,19 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 import { selectFilter } from 'redux/filter/filter.selectors';
 
-export const selectItems = state => state.contacts.items;
+export const selectItems = (state: RootState) => state.contacts.items;
 
-export const selectIsLoading = state => state.contacts.isLoading;
+export const selectIsLoading = (state: RootState) => state.contacts.isLoading;
 
-export const selectError = state => state.contacts.error;
+export const selectError = (state: RootState) => state.contacts.error;
 
 export const selectFilterContacts = createSelector(
-    [selectItems, selectFilter],
-    (items, filter) => {
-        const normalizedFilter = filter.toLowerCase();
-        return items?.filter(({ name }) =>
-            name.toLowerCase().includes(normalizedFilter)
-        );
-    }
+  [selectItems, selectFilter],
+  (items, filter) => {
+    const normalizedFilter = filter.toLowerCase();
+    return items?.filter(({ name }) =>
+      name.toLowerCase().includes(normalizedFilter)
+    );
+  }
 );
