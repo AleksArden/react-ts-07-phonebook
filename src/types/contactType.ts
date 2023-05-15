@@ -3,3 +3,5 @@ export interface IContact {
   phone: string;
   id: string;
 }
+
+export type ContactWithoutId = Omit<IContact, 'id'>;

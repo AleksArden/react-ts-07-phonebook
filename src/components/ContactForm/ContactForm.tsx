@@ -1,20 +1,23 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
 import { selectItems } from 'redux/contacts/contacts.selectors';
 import { addContactThunk } from 'redux/contacts/contacts.thunk';
 import Notiflix from 'notiflix';
 
 import css from './ContactForm.module.css';
+import { ContactWithoutId } from 'types/contactType';
 
 export const ContactForm = () => {
-  const items = useSelector(selectItems);
+  const items = useAppSelector(selectItems);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const handleChange = ({ target: { value, name } }) => {
+  const handleChange = ({
+    target: { value, name },
+  }: React.ChangeEvent<HTMLInputElement>): void => {
     switch (name) {
       case 'name':
         setName(value);
@@ -27,9 +30,9 @@ export const ContactForm = () => {
     }
   };
 
-  const handleSubmit = evt => {
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
-    const contact = { name, phone: number };
+    const contact: ContactWithoutId = { name, phone: number };
 
     const hasSameName = items.some(contact => contact.name === name);
 
@@ -40,7 +43,8 @@ export const ContactForm = () => {
         })
       : dispatch(addContactThunk(contact));
 
-    hasSameName || (setName('') && hasSameName) || setNumber('');
+    hasSameName || setName('');
+    hasSameName || setNumber('');
   };
 
   return (
