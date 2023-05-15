@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
 import {
   selectError,
   selectFilterContacts,
@@ -12,16 +12,16 @@ import { fetchContactsThunk } from 'redux/contacts/contacts.thunk';
 import css from './ContactList.module.css';
 
 export const ContactList = () => {
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const isLoading = useAppSelector(selectIsLoading);
+  const error = useAppSelector(selectError);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchContactsThunk());
   }, [dispatch]);
 
-  const contacts = useSelector(selectFilterContacts);
+  const contacts = useAppSelector(selectFilterContacts);
 
   return (
     <>
